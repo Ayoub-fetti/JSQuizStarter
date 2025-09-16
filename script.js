@@ -61,8 +61,15 @@ const restartBtn = document.getElementById('restart-btn');
 let startTime, timerInterval;
 
 restartBtn.addEventListener('click', function() {
-    console.log('test');
-    location.reload(true);
+    clearInterval(timerInterval);
+    scoreP.textContent = "";
+    feedbackP.textContent = "";
+    resultDiv.style.display = 'none';
+    submitBtn.disabled = false;
+    restartBtn.style.display = 'none';
+    document.getElementById('time').textContent ='00:00';
+    StartQuiz();
+    window.scroll({top: 0, behavior: 'smooth'});
 });
 
 
