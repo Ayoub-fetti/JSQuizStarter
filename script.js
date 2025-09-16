@@ -58,6 +58,7 @@ const resultDiv = document.querySelector('.result');
 const scoreP = document.getElementById('score');
 const feedbackP = document.getElementById('feedback');
 const restartBtn = document.getElementById('restart-btn');
+let startTime, timerInterval;
 
 restartBtn.addEventListener('click', function() {
     console.log('test');
@@ -81,7 +82,9 @@ function StartQuiz() {
     quizData.forEach((q, i) => {
         const fieldset = document.createElement('fieldset');
         const legend =  document.createElement('legend');
-        legend.textContent = `${i+1}.${q.question}`;
+        legend.textContent = `${i+1}) ${q.question}`;
+        legend.style.color = 'blue';
+        legend.style.fontWeight = 'bold'
         fieldset.appendChild(legend);
 
         q.options.forEach((opt,j) => {
@@ -97,6 +100,7 @@ function StartQuiz() {
         });
         quizForm.appendChild(fieldset);
     });
+    startTimer()
 }
 StartQuiz();
 
@@ -118,9 +122,36 @@ submitBtn.addEventListener('click' , function(e) {
     if (score >= 8) feedback = 'Excellent !';
     else if (score >= 5) feedback = 'Peut mieux faire !';
     else feedback = "Reviser encore";
-    feedbackP.textContent = feedback;
+
+    const timeObj = stopTimer();
+    const timeStr = `${timeObj.minutes} min ${timeObj.seconds} sec`;
+    
+    feedbackP.textContent = `${feedback} Répondu en ${timeStr}`;
 
     resultDiv.style.display = 'block';
     restartBtn.style.display = 'block';
     submitBtn.disabled = true;
 });
+
+// function pour demarer le temps 
+
+function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const minutes = Math.floor(elapsed / 60000);
+        const seconds = Math.floor((elapsed % 60000) / 1000);
+        document.getElementById('time').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2,'0')}`; 
+    }, 1000);
+}
+
+// function pour stoper le temps
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    const elapsed = Date.now() - startTime;
+    const minutes = Math.floor(elapsed / 60000);
+    const seconds = Math.floor((elapsed % 60000) / 1000);
+    return {minutes , seconds};
+}

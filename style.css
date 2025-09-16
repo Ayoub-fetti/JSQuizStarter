@@ -23,3 +23,8 @@ section {
     align-items: center;
     border: 2px solid;
 }
+input[type='radio']:checked + span,
+input[type='radio']:checked + label,
+input[type='radio']:checked {
+    accent-color: blue;
+}
