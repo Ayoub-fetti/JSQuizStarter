@@ -509,7 +509,6 @@ function saveQuizResult(score, timeObj) {
     history.push(result);
     localStorage.setItem('quizHistory', JSON.stringify(history));
 }
-
 // Load quiz history from local storage
 function loadQuizHistory() {
     const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
