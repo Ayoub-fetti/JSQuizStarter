@@ -1,10 +1,9 @@
-// Quiz data for different themes
 const quizThemes = {
     javascript: [
         {
             question: "Quelle est la sortie de ce code ? console.log(typeof null)",
             options: ["null", "undefined", "object", "boolean"],
-            answer: [2],
+            answer: [2], 
             multipleAnswers: false
         },
         {
@@ -65,19 +64,19 @@ const quizThemes = {
     html: [
         {
             question: "Quelle balise est utilisée pour créer un lien hypertexte ?",
-            options: ["<link>", "<a>", "<href>", "<url>"],
+            options: ["link", "a", "href", "url"],
             answer: [1],
             multipleAnswers: false
         },
         {
             question: "Quelle balise est utilisée pour insérer une image ?",
-            options: ["<img>", "<picture>", "<image>", "<src>"],
+            options: ["img", "picture", "image", "src"],
             answer: [0],
             multipleAnswers: false
         },
         {
             question: "Quelle balise HTML5 définit la navigation principale ?",
-            options: ["<menu>", "<nav>", "<navigation>", "<header>"],
+            options: ["menu", "nav", "navigation", "header"],
             answer: [1],
             multipleAnswers: false
         },
@@ -89,7 +88,7 @@ const quizThemes = {
         },
         {
             question: "Quelle balise définit un tableau en HTML ?",
-            options: ["<tab>", "<table>", "<tbl>", "<grid>"],
+            options: ["tab", "table", "tbl", "grid"],
             answer: [1],
             multipleAnswers: false
         },
@@ -101,19 +100,19 @@ const quizThemes = {
         },
         {
             question: "Quelle balise définit un formulaire en HTML ?",
-            options: ["<input>", "<form>", "<fieldset>", "<submit>"],
+            options: ["input", "form", "fieldset", "submit"],
             answer: [1],
             multipleAnswers: false
         },
         {
             question: "Quelles balises peuvent être utilisées pour créer des listes ?",
-            options: ["<ul>", "<ol>", "<dl>", "<list>"],
+            options: ["ul", "ol", "dl", "list"],
             answer: [0, 1, 2],
             multipleAnswers: true
         },
         {
             question: "Quelle balise est utilisée pour définir le titre d'une page web ?",
-            options: ["<head>", "<title>", "<header>", "<h1>"],
+            options: ["head", "title", "header", "h1"],
             answer: [1],
             multipleAnswers: false
         },
@@ -196,133 +195,352 @@ const nextBtn = document.getElementById('next-btn');
 const prevBtn = document.getElementById('prev-btn');
 const resultDiv = document.querySelector('.result');
 const scoreP = document.getElementById('score');
-const feedbackP =  document.getElementById('feedback');
+const feedbackP = document.getElementById('feedback');
 const restartBtn = document.getElementById('restart-btn');
 const startBtn = document.getElementById('start-btn');
-const themeButtons = document.querySelector('.them-btn');
+const themeButtons = document.querySelectorAll('.theme-btn');
 const usernameInput = document.getElementById('username');
 const questionTimeEl = document.getElementById('question-time');
 const questionProgressEl = document.getElementById('question-progress');
-const correctonsDiv = document.getElementById('corrections');
+const correctionsDiv = document.getElementById('corrections');
 const historyDiv = document.getElementById('history');
 const currentQuestionEl = document.getElementById('current-question');
 const totalQuestionsEl = document.getElementById('total-questions');
 
-//variables global
+// varibale global
 let selectedTheme = '';
 let username = '';
 let currentQuizData = [];
 let userAnswers = [];
 let currentQuestionIndex = 0;
-let startTime, timerInterval = 0;
+let startTime, timerInterval;
 let questionTimer;
-let timerQuestion = 20; 
+let timePerQuestion = 20;
 
-//theme selection
-
+// Theme selection
 themeButtons.forEach(button => {
     button.addEventListener('click', function() {
         themeButtons.forEach(btn => btn.classList.remove('selected'));
         this.classList.add('selected');
         selectedTheme = this.dataset.theme;
-    })
+    });
 });
 
-// function pour afficher les questions 
-function shuffleArray(array) {
-    for (let i = array.length -1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i+1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-// start the quiz 
-
-startBtn.addEventListener('click' , function() {
-    username = usernameInput.ariaValueMax.trim();
+// Start quiz
+startBtn.addEventListener('click', function() {
+    username = usernameInput.value.trim();
     if (!username) {
-        alert('Veuiller entrer un pseudo');
+        alert('Veuillez entrer un pseudo');
         return;
     }
     if (!selectedTheme) {
-        alert('Veuiller selectionner une thématique');
+        alert('Veuillez sélectionner une thématique');
         return;
     }
+    
     startScreen.style.display = 'none';
     quizContent.style.display = 'block';
-
+    
     currentQuizData = [...quizThemes[selectedTheme]];
     shuffleArray(currentQuizData);
     userAnswers = Array(currentQuizData.length).fill([]);
     currentQuestionIndex = 0;
-
-    // Update total questions count
-    totalQuestionsEl.textContent = currentQuizData.length;
+    
+    
+    totalQuestionsEl.textContent = currentQuizData.length; // Update total questions count
+    
     displayQuestion(currentQuestionIndex);
-    startTimer(); 
+    startTimer();
 });
 
-// next question button
 nextBtn.addEventListener('click', function() {
     saveCurrentAnswer();
     clearInterval(questionTimer);
-
-    // move to the next question
+    
+    // Move to next question
     if (currentQuestionIndex < currentQuizData.length - 1) {
         currentQuestionIndex++;
         displayQuestion(currentQuestionIndex);
-
-        // show previous button if not first question
+        
+        // Show previous btn if not on first question
         prevBtn.style.display = 'inline-block';
-
-        // show submit btn if on last ques or next btn if not the last
-        if (currentQuestionIndex === currentQuizData.length -1) {
+        
+        // Show submit btn if on last question if not show the next btn
+        if (currentQuestionIndex === currentQuizData.length - 1) {
             nextBtn.style.display = 'none';
             submitBtn.style.display = 'inline-block';
         }
     }
 });
 
-// previous question button
 prevBtn.addEventListener('click', function() {
     saveCurrentAnswer();
     clearInterval(questionTimer);
+    
+    // Move to previous question
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         displayQuestion(currentQuestionIndex);
-        // hide privious button if on first
+        
+        // Hide previous btn if on first question
         if (currentQuestionIndex === 0) {
             prevBtn.style.display = 'none';
         }
-        // show next button and hide submit button
+        
+        // Show next btn and hide submit button
         nextBtn.style.display = 'inline-block';
         submitBtn.style.display = 'none';
     }
 });
 
-// restart the quiz 
 restartBtn.addEventListener('click', function() {
     clearInterval(timerInterval);
     clearInterval(questionTimer);
-
+    
     scoreP.textContent = "";
     feedbackP.textContent = "";
-    correctonsDiv.innerHTML = "";
-
-    resultDiv.style.display = "none";
-    startScreen.style.display = "block";
-    quizContent.style.display = "none";
-
+    correctionsDiv.innerHTML = "";
+    
+    resultDiv.style.display = 'none';
+    startScreen.style.display = 'block';
+    quizContent.style.display = 'none';
+    
     submitBtn.style.display = 'none';
     nextBtn.style.display = 'inline-block';
     prevBtn.style.display = 'none';
     restartBtn.style.display = 'none';
-
+    
     document.getElementById('time').textContent = '00:00';
-
+    
     themeButtons.forEach(btn => btn.classList.remove('selected'));
-    usernameInput.value = username; // laiisser le username
+    usernameInput.value = username; // Keep the username
+    
     currentQuestionIndex = 0;
 });
 
+submitBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    // Save answer for the last question
+    saveCurrentAnswer();
+    
+    clearInterval(timerInterval);
+    clearInterval(questionTimer);
+    
+    calculateAndDisplayResults();
+    
+    resultDiv.style.display = 'block';
+    restartBtn.style.display = 'inline-block';
+    submitBtn.style.display = 'none';
+    quizContent.style.display = 'none';
+    
+    loadQuizHistory();
+});
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+function displayQuestion(index) {
+    const question = currentQuizData[index];
+    
+    // Update question counter
+    currentQuestionEl.textContent = index + 1;
+    
+    // question HTML
+    let questionHTML = `
+        <div class="quiz-question">
+            <div class="question-text">${index + 1}) ${question.question}</div>
+            ${question.multipleAnswers ? '<div class="multi-answer">Plusieurs réponses possibles</div>' : ''}
+            <ul class="options-list">
+    `;
+    
+    //  options
+    question.options.forEach((option, i) => {
+        const inputType = question.multipleAnswers ? 'checkbox' : 'radio';
+        const isChecked = userAnswers[index].includes(i) ? 'checked' : '';
+        
+        questionHTML += `
+            <li class="option-item">
+                <input type="${inputType}" id="q${index}o${i}" name="question${index}" value="${i}" ${isChecked}>
+                <label for="q${index}o${i}">${option}</label>
+            </li>
+        `;
+    });
+    
+    questionHTML += `</ul></div>`;
+    
+    // Update the quiz form
+    quizForm.innerHTML = questionHTML;
+    
+    // Start timer for this question
+    startQuestionTimer();
+}
+
+function saveCurrentAnswer() {
+    const question = currentQuizData[currentQuestionIndex];
+    const inputs = document.querySelectorAll(`input[name="question${currentQuestionIndex}"]:checked`);
+    
+    if (inputs.length > 0) {
+        userAnswers[currentQuestionIndex] = Array.from(inputs).map(input => parseInt(input.value));
+    }
+}
+
+// Start overall timer
+function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const minutes = Math.floor(elapsed / 60000);
+        const seconds = Math.floor((elapsed % 60000) / 1000);
+        document.getElementById('time').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2,'0')}`;
+    }, 1000);
+}
+
+// Start timer for current question
+function startQuestionTimer() {
+    let timeLeft = timePerQuestion;
+    questionTimeEl.textContent = timeLeft;
+    questionProgressEl.style.width = '100%';
+    
+    // Clear any existing timer
+    clearInterval(questionTimer);
+    
+    questionTimer = setInterval(() => {
+        timeLeft--;
+        questionTimeEl.textContent = timeLeft;
+        questionProgressEl.style.width = `${(timeLeft / timePerQuestion) * 100}%`;
+        
+        if (timeLeft <= 0) {
+            clearInterval(questionTimer);
+            
+            // When time is up, auto-move to next question or submit if on last question
+            if (currentQuestionIndex < currentQuizData.length - 1) {
+                nextBtn.click();
+            } else {
+                submitBtn.click();
+            }
+        }
+    }, 1000);
+}
+
+// Calculate and display results
+function calculateAndDisplayResults() {
+    let score = 0;
+    let corrections = '';
+    
+    currentQuizData.forEach((q, i) => {
+        const userAns = userAnswers[i] || [];
+        const correctAns = q.answer;
+        
+        // Check if arrays are identical (same values, same order doesn't matter)
+        const isCorrect = 
+            userAns.length === correctAns.length && 
+            correctAns.every(ans => userAns.includes(ans));
+        
+        if (isCorrect) {
+            score++;
+        }
+        
+        // Build corrections HTML
+        corrections += `<div class="question-result">
+            <p><strong>Question ${i+1}:</strong> ${q.question}</p>
+            <p class="${isCorrect ? 'correct' : 'incorrect'}">
+                ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
+            </p>
+            <p><strong>Votre réponse:</strong> ${
+                userAns.length === 0 ? 
+                'Pas de réponse (temps écoulé)' : 
+                userAns.map(ans => q.options[ans]).join(', ')
+            }</p>
+            <p><strong>Réponse correcte:</strong> ${correctAns.map(ans => q.options[ans]).join(', ')}</p>
+        </div>`;
+    });
+    
+    correctionsDiv.innerHTML = corrections;
+    
+    // Display score and feedback
+    scoreP.textContent = `Score : ${score} / ${currentQuizData.length}`;
+    
+    let feedback = '';
+    if (score >= 8) feedback = 'Excellent !';
+    else if (score >= 5) feedback = 'Peut mieux faire !';
+    else feedback = "Reviser encore";
+    
+    const timeObj = stopTimer();
+    const timeStr = `${timeObj.minutes} min ${timeObj.seconds} sec`;
+    
+    feedbackP.textContent = `${feedback}, temps passé dans le quiz ${timeStr}`;
+    
+    // Save result to local storage
+    saveQuizResult(score, timeObj);
+}
+
+// Stop overall timer
+function stopTimer() {
+    clearInterval(timerInterval);
+    const elapsed = Date.now() - startTime;
+    const minutes = Math.floor(elapsed / 60000);
+    const seconds = Math.floor((elapsed % 60000) / 1000);
+    return {minutes, seconds};
+}
+
+// Save quiz result to local storage
+function saveQuizResult(score, timeObj) {
+    const result = {
+        username: username,
+        theme: selectedTheme,
+        score: score,
+        total: currentQuizData.length,
+        date: new Date().toLocaleString(),
+        time: `${timeObj.minutes}m ${timeObj.seconds}s`,
+        answers: userAnswers.map((ans, i) => ({
+            question: currentQuizData[i].question,
+            userAnswer: ans || [],
+            correctAnswer: currentQuizData[i].answer
+        }))
+    };
+    
+    let history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+    history.push(result);
+    localStorage.setItem('quizHistory', JSON.stringify(history));
+}
+
+// Load quiz history from local storage
+function loadQuizHistory() {
+    const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+    
+    historyDiv.innerHTML = '';
+    
+    if (history.length === 0) {
+        historyDiv.innerHTML = '<p>Aucun historique disponible</p>';
+        return;
+    }
+    
+    // Sort history by date (newest first)
+    history.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    history.forEach(entry => {
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.innerHTML = `
+            <strong>${entry.username}</strong> - ${entry.theme} - 
+            Score: ${entry.score}/${entry.total} - 
+            ${entry.date} (${entry.time})
+        `;
+        historyDiv.appendChild(item);
+    });
+}
+
+
+// thing for documentaion
+// dataset,
+// toLocaleString,
+// Math.floor,
+// includes,
+// padStart,
+// parseInt,
