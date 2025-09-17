@@ -282,3 +282,22 @@ nextBtn.addEventListener('click', function() {
         }
     }
 });
+
+// previous question button
+prevBtn.addEventListener('click', function() {
+    saveCurrentAnswer();
+    clearInterval(questionTimer);
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        displayQuestion(currentQuestionIndex);
+        // hide privious button if on first
+        if (currentQuestionIndex === 0) {
+            prevBtn.style.display = 'none';
+        }
+        // show next button and hide submit button
+        nextBtn.style.display = 'inline-block';
+        submitBtn.style.display = 'none';
+    }
+});
+
+
