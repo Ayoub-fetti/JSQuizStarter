@@ -300,4 +300,29 @@ prevBtn.addEventListener('click', function() {
     }
 });
 
+// restart the quiz 
+restartBtn.addEventListener('click', function() {
+    clearInterval(timerInterval);
+    clearInterval(questionTimer);
+
+    scoreP.textContent = "";
+    feedbackP.textContent = "";
+    correctonsDiv.innerHTML = "";
+
+    resultDiv.style.display = "none";
+    startScreen.style.display = "block";
+    quizContent.style.display = "none";
+
+    submitBtn.style.display = 'none';
+    nextBtn.style.display = 'inline-block';
+    prevBtn.style.display = 'none';
+    restartBtn.style.display = 'none';
+
+    document.getElementById('time').textContent = '00:00';
+
+    themeButtons.forEach(btn => btn.classList.remove('selected'));
+    usernameInput.value = username; // laiisser le username
+    currentQuestionIndex = 0;
+});
+
 
