@@ -232,3 +232,17 @@ button:disabled:hover {
     background-color: #e0e7ff;
     border-color: blue;
 }
+.questionR {
+    color: blue;
+}
+.usernameL{
+    color: blue;
+}
+.TileH{
+    color: orange;
+}
+.front-score {
+    color: blue;
+    font-weight: 600;
+    font-family: Arial, sans-serif;
+}

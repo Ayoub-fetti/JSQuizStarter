@@ -3,7 +3,7 @@ const quizThemes = {
         {
             question: "Quelle est la sortie de ce code ? console.log(typeof null)",
             options: ["null", "undefined", "object", "boolean"],
-            answer: [2], 
+            answer: [2],
             multipleAnswers: false
         },
         {
@@ -237,18 +237,18 @@ startBtn.addEventListener('click', function() {
         alert('Veuillez sélectionner une thématique');
         return;
     }
-    
+
     startScreen.style.display = 'none';
     quizContent.style.display = 'block';
-    
+
     currentQuizData = [...quizThemes[selectedTheme]];
     shuffleArray(currentQuizData);
     userAnswers = Array(currentQuizData.length).fill([]);
     currentQuestionIndex = 0;
-    
-    
+
+
     totalQuestionsEl.textContent = currentQuizData.length; // Update total questions count
-    
+
     displayQuestion(currentQuestionIndex);
     startTimer();
 });
@@ -256,15 +256,15 @@ startBtn.addEventListener('click', function() {
 nextBtn.addEventListener('click', function() {
     saveCurrentAnswer();
     clearInterval(questionTimer);
-    
+
     // Move to next question
     if (currentQuestionIndex < currentQuizData.length - 1) {
         currentQuestionIndex++;
         displayQuestion(currentQuestionIndex);
-        
+
         // Show previous btn if not on first question
         prevBtn.style.display = 'inline-block';
-        
+
         // Show submit btn if on last question if not show the next btn
         if (currentQuestionIndex === currentQuizData.length - 1) {
             nextBtn.style.display = 'none';
@@ -276,17 +276,17 @@ nextBtn.addEventListener('click', function() {
 prevBtn.addEventListener('click', function() {
     saveCurrentAnswer();
     clearInterval(questionTimer);
-    
+
     // Move to previous question
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         displayQuestion(currentQuestionIndex);
-        
+
         // Hide previous btn if on first question
         if (currentQuestionIndex === 0) {
             prevBtn.style.display = 'none';
         }
-        
+
         // Show next btn and hide submit button
         nextBtn.style.display = 'inline-block';
         submitBtn.style.display = 'none';
@@ -296,44 +296,44 @@ prevBtn.addEventListener('click', function() {
 restartBtn.addEventListener('click', function() {
     clearInterval(timerInterval);
     clearInterval(questionTimer);
-    
+
     scoreP.textContent = "";
     feedbackP.textContent = "";
     correctionsDiv.innerHTML = "";
-    
+
     resultDiv.style.display = 'none';
     startScreen.style.display = 'block';
     quizContent.style.display = 'none';
-    
+
     submitBtn.style.display = 'none';
     nextBtn.style.display = 'inline-block';
     prevBtn.style.display = 'none';
     restartBtn.style.display = 'none';
-    
+
     document.getElementById('time').textContent = '00:00';
-    
+
     themeButtons.forEach(btn => btn.classList.remove('selected'));
     usernameInput.value = username; // Keep the username
-    
+
     currentQuestionIndex = 0;
 });
 
 submitBtn.addEventListener('click', function(e) {
     e.preventDefault();
-    
+
     // Save answer for the last question
     saveCurrentAnswer();
-    
+
     clearInterval(timerInterval);
     clearInterval(questionTimer);
-    
+
     calculateAndDisplayResults();
-    
+
     resultDiv.style.display = 'block';
     restartBtn.style.display = 'inline-block';
     submitBtn.style.display = 'none';
     quizContent.style.display = 'none';
-    
+
     loadQuizHistory();
 });
 
@@ -346,10 +346,10 @@ function shuffleArray(array) {
 
 function displayQuestion(index) {
     const question = currentQuizData[index];
-    
+
     // Update question counter
     currentQuestionEl.textContent = index + 1;
-    
+
     // question HTML
     let questionHTML = `
         <div class="quiz-question">
@@ -357,12 +357,12 @@ function displayQuestion(index) {
             ${question.multipleAnswers ? '<div class="multi-answer">Plusieurs réponses possibles</div>' : ''}
             <ul class="options-list">
     `;
-    
+
     //  options
     question.options.forEach((option, i) => {
         const inputType = question.multipleAnswers ? 'checkbox' : 'radio';
         const isChecked = userAnswers[index].includes(i) ? 'checked' : '';
-        
+
         questionHTML += `
             <li class="option-item">
                 <input type="${inputType}" id="q${index}o${i}" name="question${index}" value="${i}" ${isChecked}>
@@ -370,12 +370,12 @@ function displayQuestion(index) {
             </li>
         `;
     });
-    
+
     questionHTML += `</ul></div>`;
-    
+
     // Update the quiz form
     quizForm.innerHTML = questionHTML;
-    
+
     // Start timer for this question
     startQuestionTimer();
 }
@@ -383,7 +383,7 @@ function displayQuestion(index) {
 function saveCurrentAnswer() {
     const question = currentQuizData[currentQuestionIndex];
     const inputs = document.querySelectorAll(`input[name="question${currentQuestionIndex}"]:checked`);
-    
+
     if (inputs.length > 0) {
         userAnswers[currentQuestionIndex] = Array.from(inputs).map(input => parseInt(input.value));
     }
@@ -396,8 +396,8 @@ function startTimer() {
         const elapsed = Date.now() - startTime;
         const minutes = Math.floor(elapsed / 60000);
         const seconds = Math.floor((elapsed % 60000) / 1000);
-        document.getElementById('time').textContent = 
-        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2,'0')}`;
+        document.getElementById('time').textContent =
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2,'0')}`;
     }, 1000);
 }
 
@@ -406,18 +406,18 @@ function startQuestionTimer() {
     let timeLeft = timePerQuestion;
     questionTimeEl.textContent = timeLeft;
     questionProgressEl.style.width = '100%';
-    
+
     // Clear any existing timer
     clearInterval(questionTimer);
-    
+
     questionTimer = setInterval(() => {
         timeLeft--;
         questionTimeEl.textContent = timeLeft;
         questionProgressEl.style.width = `${(timeLeft / timePerQuestion) * 100}%`;
-        
+
         if (timeLeft <= 0) {
             clearInterval(questionTimer);
-            
+
             // When time is up, auto-move to next question or submit if on last question
             if (currentQuestionIndex < currentQuizData.length - 1) {
                 nextBtn.click();
@@ -432,20 +432,28 @@ function startQuestionTimer() {
 function calculateAndDisplayResults() {
     let score = 0;
     let corrections = '';
-    
+
     currentQuizData.forEach((q, i) => {
         const userAns = userAnswers[i] || [];
         const correctAns = q.answer;
-        
+
         // Check if arrays are identical (same values, same order doesn't matter)
-        const isCorrect = 
-            userAns.length === correctAns.length && 
+        const isCorrect =
+            userAns.length === correctAns.length &&
             correctAns.every(ans => userAns.includes(ans));
-        
+
         if (isCorrect) {
             score++;
         }
-        
+        if (!document.getElementById('download-pdf-btn')) {
+        const pdfBtn = document.createElement(('button'));
+        pdfBtn.id = 'download-pdf-btn';
+        pdfBtn.textContent = 'Telecharger le rapport PDF';
+        pdfBtn.className = 'btn';
+        pdfBtn.onclick = downloadPDFReport;
+        resultDiv.appendChild((pdfBtn));
+    }
+
         // Build corrections HTML
         corrections += `<div class="question-result">
             <p><strong>Question ${i+1}:</strong> ${q.question}</p>
@@ -453,29 +461,29 @@ function calculateAndDisplayResults() {
                 ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
             </p>
             <p><strong>Votre réponse:</strong> ${
-                userAns.length === 0 ? 
-                'Pas de réponse (temps écoulé)' : 
+            userAns.length === 0 ?
+                'Pas de réponse (temps écoulé)' :
                 userAns.map(ans => q.options[ans]).join(', ')
-            }</p>
+        }</p>
             <p><strong>Réponse correcte:</strong> ${correctAns.map(ans => q.options[ans]).join(', ')}</p>
         </div>`;
     });
-    
+
     correctionsDiv.innerHTML = corrections;
-    
+
     // Display score and feedback
     scoreP.textContent = `Score : ${score} / ${currentQuizData.length}`;
-    
+
     let feedback = '';
     if (score >= 8) feedback = 'Excellent !';
     else if (score >= 5) feedback = 'Peut mieux faire !';
     else feedback = "Reviser encore";
-    
+
     const timeObj = stopTimer();
     const timeStr = `${timeObj.minutes} min ${timeObj.seconds} sec`;
-    
+
     feedbackP.textContent = `${feedback}, temps passé dans le quiz ${timeStr}`;
-    
+
     // Save result to local storage
     saveQuizResult(score, timeObj);
 }
@@ -504,7 +512,7 @@ function saveQuizResult(score, timeObj) {
             correctAnswer: currentQuizData[i].answer
         }))
     };
-    
+
     let history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
     history.push(result);
     localStorage.setItem('quizHistory', JSON.stringify(history));
@@ -512,17 +520,17 @@ function saveQuizResult(score, timeObj) {
 // Load quiz history from local storage
 function loadQuizHistory() {
     const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
-    
+
     historyDiv.innerHTML = '';
-    
+
     if (history.length === 0) {
         historyDiv.innerHTML = '<p>Aucun historique disponible</p>';
         return;
     }
-    
+
     // Sort history by date (newest first)
     history.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
+
     history.forEach(entry => {
         const item = document.createElement('div');
         item.className = 'history-item';
@@ -533,6 +541,41 @@ function loadQuizHistory() {
         `;
         historyDiv.appendChild(item);
     });
+}
+
+function downloadPDFReport() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text(`Rapport de quiz`, 10, 15);
+    doc.setFontSize(12);
+    doc.text(`Utilisateur: ${username}`,10,25);
+    doc.text(`Theme: ${selectedTheme}`,10,32);
+    doc.text(`Score: ${scoreP.textContent}`,10,39);
+    doc.text(`Feedback: ${feedbackP.textContent}`, 10, 46);
+
+    let y = 56;
+    currentQuizData.forEach((q, i) => {
+        doc.setFontSize(11);
+        doc.text(`${i + 1}) ${q.question}`, 10, y);
+        y += 6;
+        doc.text(`Votre réponse: ${userAnswers[i].map(ans => q.options[ans]).join(', ') || 'Aucune'}`, 12, y);
+        y += 6;
+        doc.text(`Réponse correcte: ${q.answer.map(ans => q.options[ans]).join(', ')}`, 12, y);
+        y += 8;
+        if (y > 270) { doc.addPage(); y = 15; }
+    });
+    doc.save(`quiz-rapport-${username}.pdf`);
+}
+
+// afficher le dernier score dans la partie frontend
+const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+if (history.length > 0) {
+    const lastResult = history[history.length - 1];
+    document.getElementById('score-front').textContent =
+        ` ${lastResult.score} / ${lastResult.total} dans la thematic ${lastResult.theme}`;
+    document.querySelector('.front-score').style.display= "block";
 }
 
 
