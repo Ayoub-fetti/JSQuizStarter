@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60140115-00a6-4123-a0cc-d0761087e6bd" name="Changes" comment="rapport pdf" />
+    <list default="true" id="60140115-00a6-4123-a0cc-d0761087e6bd" name="Changes" comment="rapport pdf">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,7 +97,7 @@
       <workItem from="1758200559089" duration="4345000" />
       <workItem from="1758226708780" duration="12000" />
       <workItem from="1758269189617" duration="620000" />
-      <workItem from="1758269837752" duration="3840000" />
+      <workItem from="1758269837752" duration="5912000" />
     </task>
     <task id="LOCAL-00001" summary="confirm that i can commit from webstorm">
       <option name="closed" value="true" />
