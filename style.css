@@ -437,7 +437,6 @@ button:disabled {
     border-bottom: none;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .quiz-container {
         padding: 20px;

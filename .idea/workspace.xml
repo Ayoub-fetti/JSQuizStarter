@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60140115-00a6-4123-a0cc-d0761087e6bd" name="Changes" comment="rapport pdf">
+    <list default="true" id="60140115-00a6-4123-a0cc-d0761087e6bd" name="Changes" comment="style css">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,7 +97,7 @@
       <workItem from="1758200559089" duration="4345000" />
       <workItem from="1758226708780" duration="12000" />
       <workItem from="1758269189617" duration="620000" />
-      <workItem from="1758269837752" duration="5912000" />
+      <workItem from="1758269837752" duration="10170000" />
     </task>
     <task id="LOCAL-00001" summary="confirm that i can commit from webstorm">
       <option name="closed" value="true" />
@@ -115,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758273112121</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="style css">
+      <option name="closed" value="true" />
+      <created>1758277839955</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758277839956</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +143,19 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="confirm that i can commit from webstorm" />
     <MESSAGE value="rapport pdf" />
-    <option name="LAST_COMMIT_MESSAGE" value="rapport pdf" />
+    <MESSAGE value="style css" />
+    <option name="LAST_COMMIT_MESSAGE" value="style css" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/script.js</url>
+          <line>339</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
