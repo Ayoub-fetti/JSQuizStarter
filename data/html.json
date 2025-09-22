@@ -1,0 +1,62 @@
+[
+  {
+    "question": "Quelle balise est utilisée pour créer un lien hypertexte ?",
+    "options": ["link", "a", "href", "url"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelle balise est utilisée pour insérer une image ?",
+    "options": ["img", "picture", "image", "src"],
+    "answer": [0],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelle balise HTML5 définit la navigation principale ?",
+    "options": ["menu", "nav", "navigation", "header"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quels attributs sont obligatoires pour la balise <img> ?",
+    "options": ["src", "alt", "width", "height"],
+    "answer": [0, 1],
+    "multipleAnswers": true
+  },
+  {
+    "question": "Quelle balise définit un tableau en HTML ?",
+    "options": ["tab", "table", "tbl", "grid"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelle est la version actuelle de HTML ?",
+    "options": ["HTML4", "HTML5", "HTML6", "XHTML"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelle balise définit un formulaire en HTML ?",
+    "options": ["input", "form", "fieldset", "submit"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelles balises peuvent être utilisées pour créer des listes ?",
+    "options": ["ul", "ol", "dl", "list"],
+    "answer": [0, 1, 2],
+    "multipleAnswers": true
+  },
+  {
+    "question": "Quelle balise est utilisée pour définir le titre d'une page web ?",
+    "options": ["head", "title", "header", "h1"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quel attribut permet de définir un style CSS en ligne ?",
+    "options": ["class", "id", "style", "css"],
+    "answer": [2],
+    "multipleAnswers": false
+  }
+]

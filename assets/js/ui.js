@@ -42,17 +42,7 @@ class QuizUI {
         this.displayLastScore();
     }
 
-    selectTheme(button) {
-        this.themeButtons.forEach(btn => btn.classList.remove('selected'));
-        button.classList.add('selected');
-    }
-
-    getSelectedTheme() {
-        const selectedButton = document.querySelector('.theme-btn.selected');
-        return selectedButton ? selectedButton.dataset.theme : '';
-    }
-
-    startQuiz() {
+    async startQuiz() {
         const username = this.usernameInput.value.trim();
         const selectedTheme = this.getSelectedTheme();
 
@@ -65,20 +55,55 @@ class QuizUI {
             return;
         }
 
-        // Initialize quiz
-        this.quiz = new Quiz(quizThemes[selectedTheme], selectedTheme, username);
+        try {
+            const quizData = await Quiz.loadQuizData(selectedTheme);
+            this.quiz = new Quiz(quizData, selectedTheme, username);
 
-        // Update UI
-        this.startScreen.style.display = 'none';
-        this.quizContent.style.display = 'block';
-        this.totalQuestionsEl.textContent = this.quiz.questions.length;
+            this.startScreen.style.display = 'none';
+            this.quizContent.style.display = 'block';
+            this.totalQuestionsEl.textContent = this.quiz.questions.length;
 
-        // Show first question
-        this.displayQuestion(0);
+            this.displayQuestion(0);
+            this.startQuizTimer();
+            this.startQuestionTimer();
+        } catch (error) {
+            alert(`Erreur lors du chargement du quiz: ${error.message}`);
+        }
+    }
 
-        // Start timers
-        this.startQuizTimer();
-        this.startQuestionTimer();
+    restartQuiz() {
+        // Clear timers and reset UI
+        this.clearQuizTimer();
+        this.clearQuestionTimer();
+
+        this.scoreP.textContent = "";
+        this.feedbackP.textContent = "";
+        this.correctionsDiv.innerHTML = "";
+
+        this.resultDiv.style.display = 'none';
+        this.startScreen.style.display = 'block';
+        this.quizContent.style.display = 'none';
+
+        this.submitBtn.style.display = 'none';
+        this.nextBtn.style.display = 'inline-block';
+        this.prevBtn.style.display = 'none';
+        this.restartBtn.style.display = 'none';
+
+        this.timeEl.textContent = '00:00';
+
+        // Reset theme selection but keep username
+        this.themeButtons.forEach(btn => btn.classList.remove('selected'));
+        this.usernameInput.value = this.quiz ? this.quiz.username : '';
+    }
+
+    selectTheme(button) {
+        this.themeButtons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+    }
+
+    getSelectedTheme() {
+        const selectedButton = document.querySelector('.theme-btn.selected');
+        return selectedButton ? selectedButton.dataset.theme : '';
     }
 
     displayQuestion(index) {
@@ -267,30 +292,6 @@ class QuizUI {
         }
     }
 
-    restartQuiz() {
-        // Clear timers and reset UI
-        this.clearQuizTimer();
-        this.clearQuestionTimer();
-
-        this.scoreP.textContent = "";
-        this.feedbackP.textContent = "";
-        this.correctionsDiv.innerHTML = "";
-
-        this.resultDiv.style.display = 'none';
-        this.startScreen.style.display = 'block';
-        this.quizContent.style.display = 'none';
-
-        this.submitBtn.style.display = 'none';
-        this.nextBtn.style.display = 'inline-block';
-        this.prevBtn.style.display = 'none';
-        this.restartBtn.style.display = 'none';
-
-        this.timeEl.textContent = '00:00';
-
-        // Reset theme selection but keep username
-        this.themeButtons.forEach(btn => btn.classList.remove('selected'));
-        this.usernameInput.value = this.quiz ? this.quiz.username : '';
-    }
 
     startQuizTimer() {
         this.quiz.startTimer();

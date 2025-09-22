@@ -1,0 +1,62 @@
+[
+  {
+    "question": "Quelle propriété est utilisée pour changer la couleur du texte ?",
+    "options": ["text-color", "color", "font-color", "text-style"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelle propriété définit l'espacement entre les lettres ?",
+    "options": ["letter-spacing", "text-spacing", "character-spacing", "font-spacing"],
+    "answer": [0],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Comment sélectionner tous les éléments <p> à l'intérieur d'un élément avec la classe 'content' ?",
+    "options": [".content p", "content > p", ".content, p", "p.content"],
+    "answer": [0],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelles propriétés peuvent être animées en CSS ?",
+    "options": ["width", "color", "transform", "display"],
+    "answer": [0, 1, 2],
+    "multipleAnswers": true
+  },
+  {
+    "question": "Quelle propriété est utilisée pour créer un espace autour d'un élément, en dehors de sa bordure ?",
+    "options": ["margin", "padding", "spacing", "border-spacing"],
+    "answer": [0],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelle propriété définit la disposition des éléments dans un conteneur Flexbox ?",
+    "options": ["flex-direction", "justify-content", "align-items", "flex-wrap"],
+    "answer": [0],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelles sont les valeurs possibles pour la propriété 'position' ?",
+    "options": ["static", "relative", "fixed", "floating"],
+    "answer": [0, 1, 2],
+    "multipleAnswers": true
+  },
+  {
+    "question": "Quelle unité est relative à la taille de la police de l'élément parent ?",
+    "options": ["px", "em", "rem", "vh"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Quelle propriété est utilisée pour arrondir les coins d'un élément ?",
+    "options": ["corner-radius", "border-radius", "rounded-corners", "box-radius"],
+    "answer": [1],
+    "multipleAnswers": false
+  },
+  {
+    "question": "Comment cibler un élément avec l'ID 'header' en CSS ?",
+    "options": [".header", "#header", "header", "*header"],
+    "answer": [1],
+    "multipleAnswers": false
+  }
+]
