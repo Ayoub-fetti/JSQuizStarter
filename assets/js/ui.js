@@ -5,7 +5,6 @@ class QuizUI {
         this.quizForm = document.getElementById('quiz-form');
         this.submitBtn = document.getElementById('submit-btn');
         this.nextBtn = document.getElementById('next-btn');
-        this.prevBtn = document.getElementById('prev-btn');
         this.resultDiv = document.querySelector('.result');
         this.scoreP = document.getElementById('score');
         this.feedbackP = document.getElementById('feedback');
@@ -34,7 +33,6 @@ class QuizUI {
 
         this.startBtn.addEventListener('click', () => this.startQuiz());
         this.nextBtn.addEventListener('click', () => this.goToNextQuestion());
-        this.prevBtn.addEventListener('click', () => this.goToPreviousQuestion());
         this.restartBtn.addEventListener('click', () => this.restartQuiz());
         this.submitBtn.addEventListener('click', (e) => this.submitQuiz(e));
 
@@ -86,7 +84,6 @@ class QuizUI {
 
         this.submitBtn.style.display = 'none';
         this.nextBtn.style.display = 'inline-block';
-        this.prevBtn.style.display = 'none';
         this.restartBtn.style.display = 'none';
 
         this.timeEl.textContent = '00:00';
@@ -154,8 +151,6 @@ class QuizUI {
         if (this.quiz.nextQuestion()) {
             this.displayQuestion(this.quiz.currentQuestionIndex);
 
-            // Update navigation buttons
-            this.prevBtn.style.display = 'inline-block';
 
             if (this.quiz.isLastQuestion()) {
                 this.nextBtn.style.display = 'none';
@@ -166,7 +161,7 @@ class QuizUI {
         }
     }
 
-    goToPreviousQuestion() {
+/*    goToPreviousQuestion() {
         this.saveCurrentAnswer();
         this.clearQuestionTimer();
 
@@ -183,7 +178,7 @@ class QuizUI {
 
             this.startQuestionTimer();
         }
-    }
+    }*/
 
     submitQuiz(e) {
         e.preventDefault();
@@ -254,7 +249,7 @@ class QuizUI {
         if (!document.getElementById('download-pdf-btn')) {
             const pdfBtn = document.createElement('button');
             pdfBtn.id = 'download-pdf-btn';
-            pdfBtn.textContent = 'Telecharger le rapport PDF';
+            pdfBtn.innerHTML = '&#8595;\t Rapport PDF';
             pdfBtn.className = 'btn';
             pdfBtn.onclick = () => this.downloadPDFReport();
             this.resultDiv.appendChild(pdfBtn);

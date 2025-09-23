@@ -343,6 +343,7 @@ button:disabled {
 #restart-btn {
     background-color: var(--accent-color);
     color: white;
+    margin-right: 10px;
 }
 
 #download-pdf-btn {
