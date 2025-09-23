@@ -137,6 +137,7 @@ class QuizUI {
         this.addInstantVerification(index);
     }
 
+    // verifier les reponse avec une validation instantane
     addInstantVerification(index){
     const inputs = document.querySelectorAll(`input[name="question${index}"]`);
     const feedbackDiv = document.getElementById('instant-feedback');

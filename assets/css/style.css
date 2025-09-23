@@ -13,8 +13,15 @@
 }
 
 body {
+    /*
     background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ed 100%);
-    font-family: 'Roboto', Arial, sans-serif;
+    */
+    background-image: url("/assets/images/gif.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /*font-family: 'Roboto', Arial, sans-serif;*/
+    font-family: 'Press Start 2P', cursive;
     margin: 0;
     padding: 0;
     color: var(--text-color);
@@ -23,27 +30,24 @@ body {
 
 header {
     padding: 20px 0;
-    background-color: white;
-    box-shadow: var(--shadow);
     margin-bottom: 30px;
 }
 
 .title {
-    color: var(--primary-color);
+    color: white;
     font-size: 2.5rem;
     text-align: center;
     margin: 0;
     font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: 2px;
 }
 
 .front-score {
     text-align: center;
     background-color: white;
-    max-width: 600px;
+    max-width: 400px; /* Réduit de 500px à 400px */
     margin: 0 auto 20px;
-    padding: 10px 15px;
+    padding: 8px 12px; /* Réduit le padding */
     border-radius: 8px;
     box-shadow: var(--shadow);
     color: var(--primary-color);
@@ -55,40 +59,43 @@ header {
 main {
     display: flex;
     justify-content: center;
-    padding: 0 20px;
+    min-height: calc(100vh - 200px);
+    padding: 20px;
 }
 
 .quiz-container {
     background-color: white;
     border-radius: 12px;
     box-shadow: var(--shadow);
-    padding: 30px;
+    padding: 20px; /* Réduit de 25px à 20px */
     width: 100%;
-    max-width: 800px;
-    min-height: 400px;
+    max-width: 480px; /* Réduit de 600px à 480px */
+    min-height: 280px; /* Réduit de 350px à 280px */
     position: relative;
     transition: var(--transition);
+    margin: 0 auto;
 }
+
 
 /* Form elements */
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px; /* Réduit de 25px à 20px */
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
     font-weight: 600;
     color: var(--primary-color);
-    font-size: 1.1rem;
+    font-size: 1rem; /* Réduit de 1.1rem à 1rem */
 }
 
 #username {
     width: 100%;
-    padding-top: 10px;
+    padding-top: 8px; /* Réduit de 10px à 8px */
     border-radius: 8px;
     border: 2px solid #e0e0e0;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Réduit de 1rem à 0.9rem */
     transition: var(--transition);
 }
 
@@ -100,27 +107,29 @@ main {
 
 .theme-selector {
     display: flex;
-    gap: 15px;
+    gap: 12px; /* Réduit de 15px à 12px */
     flex-wrap: wrap;
 }
 
 .theme-btn {
     flex: 1;
-    min-width: 120px;
-    padding: 12px 20px;
+    min-width: 100px; /* Réduit de 120px à 100px */
+    padding: 10px 16px; /* Réduit de 12px 20px à 10px 16px */
     border-radius: 8px;
     border: 2px solid var(--primary-color);
     background-color: white;
     color: var(--primary-color);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.8rem; /* Réduit de 1rem à 0.8rem */
     cursor: pointer;
     transition: var(--transition);
     text-transform: uppercase;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .theme-btn:hover {
     background-color: rgba(67, 97, 238, 0.1);
+
 }
 
 .theme-btn.selected {
@@ -132,16 +141,17 @@ main {
 #start-btn {
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 14px 28px;
+    padding: 12px 24px; /* Réduit de 14px 28px à 12px 24px */
     border: none;
     border-radius: 8px;
-    font-size: 1.1rem;
+    font-size: 1rem; /* Réduit de 1.1rem à 1rem */
     font-weight: 600;
     cursor: pointer;
     width: 100%;
     margin-top: 10px;
     transition: var(--transition);
     box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
+    font-family: 'Press Start 2P', cursive;
 }
 
 #start-btn:hover {
@@ -154,20 +164,20 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
+    padding-bottom: 12px; /* Réduit de 15px à 12px */
     border-bottom: 2px solid #f0f0f0;
-    margin-bottom: 20px;
+    margin-bottom: 16px; /* Réduit de 20px à 16px */
 }
 
 .question-counter {
     font-weight: 600;
     color: var(--primary-color);
-    font-size: 1.1rem;
+    font-size: 1rem; /* Réduit de 1.1rem à 1rem */
 }
 
 .timer {
     background-color: var(--light-bg);
-    padding: 8px 15px;
+    padding: 6px 12px; /* Réduit de 8px 15px à 6px 12px */
     border-radius: 50px;
     font-weight: 600;
     color: var(--text-color);
@@ -180,16 +190,16 @@ main {
 .question-timer {
     display: flex;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px; /* Réduit de 25px à 20px */
 }
 
 .progress-bar {
     flex: 1;
-    height: 8px;
+    height: 6px; /* Réduit de 8px à 6px */
     background-color: #e9ecef;
     border-radius: 50px;
     overflow: hidden;
-    margin-right: 10px;
+    margin-right: 8px; /* Réduit de 10px à 8px */
 }
 
 #question-progress {
@@ -205,16 +215,16 @@ main {
 }
 
 .quiz-question {
-    margin-bottom: 30px;
+    margin-bottom: 24px; /* Réduit de 30px à 24px */
 }
 
 .question-text {
     color: var(--text-color);
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Réduit de 1.2rem à 1.1rem */
     line-height: 1.4;
-    margin-bottom: 20px;
-    padding-left: 15px;
+    margin-bottom: 16px; /* Réduit de 20px à 16px */
+    padding-left: 12px; /* Réduit de 15px à 12px */
     border-left: 4px solid var(--primary-color);
 }
 
@@ -222,11 +232,11 @@ main {
     display: inline-block;
     font-style: italic;
     color: var(--accent-color);
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Réduit de 15px à 12px */
     background-color: rgba(247, 37, 133, 0.1);
-    padding: 5px 10px;
+    padding: 4px 8px; /* Réduit de 5px 10px à 4px 8px */
     border-radius: 4px;
-    font-size: 0.9rem;
+    font-size: 0.8rem; /* Réduit de 0.9rem à 0.8rem */
 }
 
 .options-list {
@@ -235,7 +245,7 @@ main {
 }
 
 .option-item {
-    margin-bottom: 12px;
+    margin-bottom: 10px; /* Réduit de 12px à 10px */
 }
 
 .option-item input[type="radio"],
@@ -246,7 +256,7 @@ main {
 .option-item label {
     display: flex;
     align-items: center;
-    padding: 12px 15px;
+    padding: 10px 12px; /* Réduit de 12px 15px à 10px 12px */
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     transition: var(--transition);
@@ -257,9 +267,9 @@ main {
 .option-item label::before {
     content: "";
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+    width: 18px; /* Réduit de 20px à 18px */
+    height: 18px; /* Réduit de 20px à 18px */
+    margin-right: 8px; /* Réduit de 10px à 8px */
     border: 2px solid #e0e0e0;
     border-radius: 50%;
     transition: var(--transition);
@@ -279,10 +289,10 @@ main {
 .option-item input[type="checkbox"]:checked + label::after {
     content: "";
     position: absolute;
-    left: 19px;
-    top: 17px;
-    width: 6px;
-    height: 12px;
+    left: 17px; /* Ajusté selon la nouvelle taille */
+    top: 15px; /* Ajusté selon la nouvelle taille */
+    width: 5px; /* Réduit de 6px à 5px */
+    height: 10px; /* Réduit de 12px à 10px */
     border: solid white;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
@@ -302,30 +312,27 @@ main {
 .btns {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
+    gap: 12px; /* Réduit de 15px à 12px */
+    margin-top: 24px; /* Réduit de 30px à 24px */
 }
 
 button {
-    min-width: 120px;
-    padding: 10px 20px;
+    min-width: 100px; /* Réduit de 120px à 100px */
+    padding: 8px 16px; /* Réduit de 10px 20px à 8px 16px */
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
     border: none;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Réduit de 1rem à 0.9rem */
 }
 
 #next-btn, #submit-btn {
     background-color: var(--primary-color);
     color: white;
+    font-family: 'Press Start 2P', cursive;
 }
 
-#prev-btn {
-    background-color: var(--text-light);
-    color: white;
-}
 
 button:hover {
     transform: translateY(-2px);
@@ -344,12 +351,14 @@ button:disabled {
     background-color: var(--accent-color);
     color: white;
     margin-right: 10px;
+    font-family: 'Press Start 2P', cursive;
 }
 
 #download-pdf-btn {
     background-color: #4cc9f0;
     color: white;
-    margin-top: 20px;
+    margin-top: 16px; /* Réduit de 20px à 16px */
+    font-family: 'Press Start 2P', cursive;
 }
 
 /* Results section */
@@ -358,28 +367,28 @@ button:disabled {
 }
 
 #score {
-    font-size: 2rem;
+    font-size: 1.8rem; /* Réduit de 2rem à 1.8rem */
     font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
 }
 
 #feedback {
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Réduit de 1.2rem à 1.1rem */
     color: var(--text-color);
-    margin-bottom: 30px;
+    margin-bottom: 24px; /* Réduit de 30px à 24px */
 }
 
 .corrections {
     text-align: left;
-    margin-top: 30px;
+    margin-top: 24px; /* Réduit de 30px à 24px */
 }
 
 .question-result {
     background-color: white;
     border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
+    padding: 12px; /* Réduit de 15px à 12px */
+    margin-bottom: 12px; /* Réduit de 15px à 12px */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     border-left: 4px solid #e0e0e0;
 }
@@ -396,11 +405,11 @@ button:disabled {
 
 .TileH {
     color: var(--accent-color);
-    font-size: 1.5rem;
-    margin-top: 40px;
+    font-size: 1.3rem; /* Réduit de 1.5rem à 1.3rem */
+    margin-top: 32px; /* Réduit de 40px à 32px */
     position: relative;
     display: inline-block;
-    padding-bottom: 8px;
+    padding-bottom: 6px; /* Réduit de 8px à 6px */
 }
 
 .TileH::after {
@@ -409,23 +418,26 @@ button:disabled {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
+    width: 40px; /* Réduit de 50px à 40px */
+    height: 2px; /* Réduit de 3px à 2px */
     background-color: var(--accent-color);
 }
 
 .history {
-    margin-top: 20px;
-    max-height: 300px;
+    margin-top: 16px; /* Réduit de 20px à 16px */
+    max-height: 250px; /* Réduit de 300px à 250px */
     overflow-y: auto;
     text-align: left;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+#close {
+    font-family: 'Press Start 2P', cursive;
+}
 
 .history-item {
-    padding: 12px 15px;
+    padding: 10px 12px; /* Réduit de 12px 15px à 10px 12px */
     border-bottom: 1px solid #e9ecef;
     transition: var(--transition);
 }
@@ -438,8 +450,8 @@ button:disabled {
     border-bottom: none;
 }
 .instant-feedback {
-    margin-top: 10px;
-    margin-left: 5px;
+    margin-top: 8px; /* Réduit de 10px à 8px */
+    margin-left: 4px; /* Réduit de 5px à 4px */
     font-weight: bold;
 }
 .instant-feedback .correct {
@@ -452,12 +464,13 @@ button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }.option-item input:disabled + label:hover {
-    border-color: #e0e0e0;
-    border-color: transparent;
-}
+     border-color: #e0e0e0;
+     border-color: transparent;
+ }
 @media (max-width: 768px) {
     .quiz-container {
-        padding: 20px;
+        padding: 16px; /* Réduit de 20px à 16px */
+        max-width: 90%; /* Assure une bonne adaptation mobile */
     }
 
     .theme-selector {
@@ -474,6 +487,6 @@ button:disabled {
     }
 
     .title {
-        font-size: 2rem;
+        font-size: 1.8rem; /* Réduit de 2rem à 1.8rem */
     }
 }
