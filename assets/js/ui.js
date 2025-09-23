@@ -130,10 +130,53 @@ class QuizUI {
             `;
         });
 
-        questionHTML += `</ul></div>`;
+        questionHTML += `</ul><div id="instant-feedback" class="instant-feedback"></div></div>`;
 
         // Update form
         this.quizForm.innerHTML = questionHTML;
+        this.addInstantVerification(index);
+    }
+
+    addInstantVerification(index){
+    const inputs = document.querySelectorAll(`input[name="question${index}"]`);
+    const feedbackDiv = document.getElementById('instant-feedback');
+    const question = this.quiz.getCurrentQuestion();
+
+    if (question.multipleAnswers) {
+        const validateBtn = document.createElement('button');
+        validateBtn.textContent ='Valider mes reponses';
+        validateBtn.className = 'validate-btn';
+        validateBtn.style.cssText = 'background: var(--primary-color); color: white; padding: 8px 16px; border: none; border-radius: 4px; margin-top: 10px; cursor: pointer;';
+
+        feedbackDiv.appendChild(validateBtn);
+
+        validateBtn.addEventListener('click', ()=> {
+            inputs.forEach(inp => inp.disabled = true);
+            validateBtn.disabled = true;
+
+            const selectedAnswers = Array.from(document.querySelectorAll(`input[name="question${index}"]:checked`)).map(inp => parseInt(inp.value));
+            const correctAnswers = question.answer;
+            const isCorrect = selectedAnswers.length === correctAnswers.length &&
+                correctAnswers.every(ans => selectedAnswers.includes(ans));
+
+            feedbackDiv.innerHTML = `<p class="${isCorrect ? 'correct' : 'incorrect'}">
+            ${isCorrect ? '✓ Correct !' : '✗ Incorrect !'}
+            </p>`;        });
+    } else {
+        inputs.forEach(input => {
+            input.addEventListener('change', ()=> {
+                inputs.forEach(inp => inp.disabled = true);
+
+                const selectedAnswers = Array.from(document.querySelectorAll(`input[name="question${index}"]:checked`)).map(inp => parseInt(inp.value));
+                const correctAnswers = this.quiz.getCurrentQuestion().answer;
+                const isCorrect = selectedAnswers.length === correctAnswers.length &&
+                    correctAnswers.every(ans => selectedAnswers.includes(ans));
+                feedbackDiv.innerHTML = `<p class="${isCorrect ? 'correct' : 'incorrect'}">
+            ${isCorrect ? '✓ Correct !' : '✗ Incorrect !'}
+            </p>`;
+            });
+        });
+    }
     }
 
     saveCurrentAnswer() {
@@ -160,25 +203,6 @@ class QuizUI {
             this.startQuestionTimer();
         }
     }
-
-/*    goToPreviousQuestion() {
-        this.saveCurrentAnswer();
-        this.clearQuestionTimer();
-
-        if (this.quiz.previousQuestion()) {
-            this.displayQuestion(this.quiz.currentQuestionIndex);
-
-            // Update navigation buttons
-            if (this.quiz.isFirstQuestion()) {
-                this.prevBtn.style.display = 'none';
-            }
-
-            this.nextBtn.style.display = 'inline-block';
-            this.submitBtn.style.display = 'none';
-
-            this.startQuestionTimer();
-        }
-    }*/
 
     submitQuiz(e) {
         e.preventDefault();
@@ -286,7 +310,6 @@ class QuizUI {
             document.querySelector('.front-score').style.display = "block";
         }
     }
-
 
     startQuizTimer() {
         this.quiz.startTimer();

@@ -437,7 +437,24 @@ button:disabled {
 .history-item:last-child {
     border-bottom: none;
 }
-
+.instant-feedback {
+    margin-top: 10px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+.instant-feedback .correct {
+    color: green !important;
+}
+.instant-feedback .incorrect {
+    color: red !important;
+}
+.option-item input:disabled + label {
+    opacity: 0.6;
+    cursor: not-allowed;
+}.option-item input:disabled + label:hover {
+    border-color: #e0e0e0;
+    border-color: transparent;
+}
 @media (max-width: 768px) {
     .quiz-container {
         padding: 20px;
