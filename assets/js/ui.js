@@ -26,7 +26,7 @@ class QuizUI {
     }
 
     init() {
-        // Initialize event listeners
+        // Initialize event listeners for the buttons
         this.themeButtons.forEach(button => {
             button.addEventListener('click', () => this.selectTheme(button));
         });

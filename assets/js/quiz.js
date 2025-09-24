@@ -147,7 +147,5 @@ class Quiz {
     }
 
 }
-
-
 // Export
 window.Quiz = Quiz;
