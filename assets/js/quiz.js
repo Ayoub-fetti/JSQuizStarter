@@ -157,7 +157,7 @@ class Quiz {
         return stats;
         console.log(stats);
     }
-
+    // statistic pour la moyen
     static  getAverageScoreByTheme() {
         const history = this.getQuizHistory();
         const themeStats = {};
