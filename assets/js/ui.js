@@ -241,7 +241,7 @@ class QuizUI {
         results.details.forEach((result, i) => {
             correctionsHTML += `
                 <div class="question-result">
-                    <p><strong>Question ${i+1}:</strong> ${result.question}</p>
+                    <p><strong class="q-r">Question ${i+1}:</strong> ${result.question}</p>
                     <p class="${result.isCorrect ? 'correct' : 'incorrect'}">
                         ${result.isCorrect ? '✓ Correct' : '✗ Incorrect'}
                     </p>
@@ -290,6 +290,9 @@ class QuizUI {
             this.historyDiv.innerHTML = '<p>Aucun historique disponible</p>';
             return;
         }
+        this.historyDiv.innerHTML = this.displayStatistics();
+
+        const historySection = document.createElement('div');
 
         history.forEach(entry => {
             const item = document.createElement('div');
@@ -301,6 +304,7 @@ class QuizUI {
             `;
             this.historyDiv.appendChild(item);
         });
+        this.historyDiv.appendChild(historySection);
     }
 
     displayLastScore() {
@@ -378,6 +382,28 @@ class QuizUI {
         });
 
         doc.save(`quiz-rapport-${this.quiz.username}.pdf`);
+    }
+
+    displayStatistics() {
+        const gamesByTheme = Quiz.getGamesBytheme();
+        const averagesByTheme = Quiz.getAverageScoreByTheme();
+        const topScores = Quiz.getTopScores();
+
+        let statsHTML = '<div class="statistics-section">';
+        statsHTML += '<h4>Parties par thematique</h4>';
+        Object.entries(gamesByTheme).forEach(([theme, count]) => {
+            statsHTML += `<p>${theme}: ${count} partie(s)</p>`;
+        });
+        statsHTML += '<h4>Score moyen par thematique</h4>';
+        Object.entries(averagesByTheme).forEach(([theme, avg]) => {
+            statsHTML += `<p>${theme}: ${avg}%</p>`;
+        });
+        statsHTML += '<h4>Top 3 meilleurs scores</h4>';
+        topScores.forEach((user, index) => {
+            statsHTML += `<p>${index +1}. ${user.username}: ${user.percentage}% (${user.theme})</p>`;
+        });
+        statsHTML += `</div>`;
+        return statsHTML;
     }
 }
 

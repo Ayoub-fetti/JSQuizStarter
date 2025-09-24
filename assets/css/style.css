@@ -45,7 +45,7 @@ header {
 .front-score {
     text-align: center;
     background-color: white;
-    max-width: 400px; /* Réduit de 500px à 400px */
+    max-width: 800px; /* Réduit de 500px à 400px */
     margin: 0 auto 20px;
     padding: 8px 12px; /* Réduit le padding */
     border-radius: 8px;
@@ -69,7 +69,7 @@ main {
     box-shadow: var(--shadow);
     padding: 20px; /* Réduit de 25px à 20px */
     width: 100%;
-    max-width: 480px; /* Réduit de 600px à 480px */
+    max-width: 620px; /* Réduit de 600px à 480px */
     min-height: 280px; /* Réduit de 350px à 280px */
     position: relative;
     transition: var(--transition);
@@ -141,10 +141,10 @@ main {
 #start-btn {
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 12px 24px; /* Réduit de 14px 28px à 12px 24px */
+    padding: 12px 24px;
     border: none;
     border-radius: 8px;
-    font-size: 1rem; /* Réduit de 1.1rem à 1rem */
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     width: 100%;
@@ -364,17 +364,18 @@ button:disabled {
 /* Results section */
 .result {
     text-align: center;
+    width: 600px;
 }
 
 #score {
-    font-size: 1.8rem; /* Réduit de 2rem à 1.8rem */
+    font-size: 1rem; /* Réduit de 2rem à 1.8rem */
     font-weight: 700;
     color: var(--primary-color);
     margin-bottom: 8px; /* Réduit de 10px à 8px */
 }
 
 #feedback {
-    font-size: 1.1rem; /* Réduit de 1.2rem à 1.1rem */
+    font-size: 0.9rem; /* Réduit de 1.2rem à 1.1rem */
     color: var(--text-color);
     margin-bottom: 24px; /* Réduit de 30px à 24px */
 }
@@ -386,11 +387,15 @@ button:disabled {
 
 .question-result {
     background-color: white;
+    font-size: 0.8rem;
     border-radius: 8px;
     padding: 12px; /* Réduit de 15px à 12px */
     margin-bottom: 12px; /* Réduit de 15px à 12px */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     border-left: 4px solid #e0e0e0;
+}
+.q-r {
+    color: blue;
 }
 
 .correct {
@@ -440,6 +445,7 @@ button:disabled {
     padding: 10px 12px; /* Réduit de 12px 15px à 10px 12px */
     border-bottom: 1px solid #e9ecef;
     transition: var(--transition);
+    font-size: 0.5rem;
 }
 
 .history-item:hover {
@@ -466,6 +472,9 @@ button:disabled {
 }.option-item input:disabled + label:hover {
      border-color: #e0e0e0;
      border-color: transparent;
+ }
+ .statistics-section{
+     font-size: 0.5rem;
  }
 @media (max-width: 768px) {
     .quiz-container {
