@@ -26,7 +26,6 @@ class QuizUI {
     }
 
     init() {
-        // Initialize event listeners for the buttons
         this.themeButtons.forEach(button => {
             button.addEventListener('click', () => this.selectTheme(button));
         });
@@ -36,8 +35,8 @@ class QuizUI {
         this.restartBtn.addEventListener('click', () => this.restartQuiz());
         this.submitBtn.addEventListener('click', (e) => this.submitQuiz(e));
 
-        // Display last score if available
         this.displayLastScore();
+        this.checkForInterruptedQuiz();
     }
 
     async startQuiz() {
@@ -51,6 +50,15 @@ class QuizUI {
         if (!selectedTheme) {
             alert('Veuillez sélectionner une thématique');
             return;
+        }
+
+        if (QuizStorage.hasProgress(username, selectedTheme)) {
+            if (confirm('Une partie est en cours pour ce thème. Voulez-vous la reprendre ?')) {
+                this.resumeQuiz();
+                return;
+            } else {
+                QuizStorage.clearProgress();
+            }
         }
 
         try {
@@ -68,6 +76,29 @@ class QuizUI {
             alert(`Erreur lors du chargement du quiz: ${error.message}`);
         }
     }
+    resumeQuiz() {
+        const progress = QuizStorage.loadProgress();
+
+        this.quiz = new Quiz([], progress.theme, progress.username);
+        this.quiz.questions = progress.questions;
+        this.quiz.userAnswers = progress.userAnswers;
+        this.quiz.currentQuestionIndex = progress.currentQuestionIndex;
+        this.quiz.startTime = progress.startTime;
+
+        this.startScreen.style.display = 'none';
+        this.quizContent.style.display = 'block';
+        this.totalQuestionsEl.textContent = this.quiz.questions.length;
+
+        this.displayQuestion(this.quiz.currentQuestionIndex);
+        this.startQuizTimer();
+        this.startQuestionTimer();
+
+        if (this.quiz.isLastQuestion()) {
+            this.nextBtn.style.display = 'none';
+            this.submitBtn.style.display = 'inline-block';
+        }
+    }
+
 
     restartQuiz() {
         // Clear timers and reset UI
@@ -190,11 +221,11 @@ class QuizUI {
 
     goToNextQuestion() {
         this.saveCurrentAnswer();
+        this.quiz.saveProgress();
         this.clearQuestionTimer();
 
         if (this.quiz.nextQuestion()) {
             this.displayQuestion(this.quiz.currentQuestionIndex);
-
 
             if (this.quiz.isLastQuestion()) {
                 this.nextBtn.style.display = 'none';
@@ -205,33 +236,49 @@ class QuizUI {
         }
     }
 
+    checkForInterruptedQuiz() {
+        const progress = QuizStorage.loadProgress();
+        if (progress) {
+            const message = `Partie interrompue trouvée: ${progress.theme} (${progress.username}). Voulez-vous la reprendre ?`;
+            if (confirm(message)) {
+                this.usernameInput.value = progress.username;
+                this.selectThemeByName(progress.theme);
+                this.resumeQuiz();
+            } else {
+                QuizStorage.clearProgress();
+            }
+        }
+    }
+    selectThemeByName(themeName) {
+        this.themeButtons.forEach(btn => {
+            btn.classList.remove('selected');
+            if (btn.dataset.theme === themeName) {
+                btn.classList.add('selected');
+            }
+        });
+    }
+
+
     submitQuiz(e) {
         e.preventDefault();
 
-        // Save final answer
         this.saveCurrentAnswer();
-
-        // Clear timers
         this.clearQuestionTimer();
         this.clearQuizTimer();
 
-        // Calculate results
         const timeObj = this.quiz.getElapsedTime();
         const results = this.quiz.calculateResults();
 
-        // Save results
         this.quiz.saveResult(results.score, timeObj);
+        QuizStorage.clearProgress();
 
-        // Display results
         this.displayResults(results, timeObj);
 
-        // Update UI
         this.resultDiv.style.display = 'block';
         this.restartBtn.style.display = 'inline-block';
         this.submitBtn.style.display = 'none';
         this.quizContent.style.display = 'none';
 
-        // Load history
         this.displayQuizHistory();
 
         if (window.QuizChart) {

@@ -140,5 +140,39 @@ class Quiz {
         }
     }
 
+    saveProgress() {
+        QuizStorage.saveProgress(this);
+    }
+
+    static  hasProgress(username, theme) {
+        return QuizStorage.hasProgress(username, theme);
+    }
+
+    static loadProgress() {
+        return QuizStorage.loadProgress();
+    }
+
+    static  clearProgress() {
+        QuizStorage.clearProgress();
+    }
+
+    saveResult(score, timeObj) {
+        const result = {
+            username: this.username,
+            theme: this.theme,
+            score: score,
+            total: this.questions.length,
+            date: new Date().toLocaleString(),
+            time: `${timeObj.minutes}m ${timeObj.seconds}s`,
+            answers: this.userAnswers.map((ans, i) => ({
+                question: this.questions[i].question,
+                userAnswer: ans || [],
+                correctAnswer: this.questions[i].answer
+            }))
+        };
+        QuizStorage.saveResult(result);
+        return result;
+    }
+
 }
 window.Quiz = Quiz;
