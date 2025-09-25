@@ -17,7 +17,9 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    font-family: 'Press Start 2P', cursive;
+    /*font-family: 'Press Start 2P', cursive;*/
+    font-family: 'VT323', monospace;
+    font-size: 20px;
     margin: 0;
     padding: 0;
     color: var(--text-color);
@@ -116,11 +118,12 @@ main {
     background-color: white;
     color: var(--primary-color);
     font-weight: 600;
-    font-size: 0.8rem; /* Réduit de 1rem à 0.8rem */
     cursor: pointer;
     transition: var(--transition);
     text-transform: uppercase;
-    font-family: 'Press Start 2P', cursive;
+    /*font-family: 'Press Start 2P', cursive;*/
+    font-family: 'VT323', monospace;
+    font-size: 20px;
 }
 
 .theme-btn:hover {
@@ -140,14 +143,15 @@ main {
     padding: 12px 24px;
     border: none;
     border-radius: 8px;
-    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     width: 100%;
     margin-top: 10px;
     transition: var(--transition);
     box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
-    font-family: 'Press Start 2P', cursive;
+    /*font-family: 'Press Start 2P', cursive;*/
+    font-family: 'VT323', monospace;
+    font-size: 20px;
 }
 
 #start-btn:hover {
@@ -326,7 +330,9 @@ button {
 #next-btn, #submit-btn {
     background-color: var(--primary-color);
     color: white;
-    font-family: 'Press Start 2P', cursive;
+    /*font-family: 'Press Start 2P', cursive;*/
+    font-family: 'VT323', monospace;
+    font-size: 20px;
 }
 
 
@@ -347,14 +353,18 @@ button:disabled {
     background-color: var(--accent-color);
     color: white;
     margin-right: 10px;
-    font-family: 'Press Start 2P', cursive;
+    /*font-family: 'Press Start 2P', cursive;*/
+    font-family: 'VT323', monospace;
+    font-size: 20px;
 }
 
 #download-pdf-btn {
     background-color: #4cc9f0;
     color: white;
-    margin-top: 16px; /* Réduit de 20px à 16px */
-    font-family: 'Press Start 2P', cursive;
+    margin-top: 16px;
+    /*font-family: 'Press Start 2P', cursive;*/
+    font-family: 'VT323', monospace;
+    font-size: 20px;
 }
 
 /* Results section */
@@ -434,7 +444,9 @@ button:disabled {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 #close {
-    font-family: 'Press Start 2P', cursive;
+    /*font-family: 'Press Start 2P', cursive;*/
+    font-family: 'VT323', monospace;
+    font-size: 20px;
 }
 
 .history-item {

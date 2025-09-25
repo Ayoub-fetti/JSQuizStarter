@@ -44,16 +44,24 @@ class QuizUI {
         const selectedTheme = this.getSelectedTheme();
 
         if (!username) {
-            alert('Veuillez entrer un pseudo');
+            Swal.fire('Erreur','Veuillez entrer un pseudo');
             return;
         }
         if (!selectedTheme) {
-            alert('Veuillez sélectionner une thématique');
+            Swal.fire('Erreur','Veuillez sélectionner une thématique');
             return;
         }
 
         if (QuizStorage.hasProgress(username, selectedTheme)) {
-            if (confirm('Une partie est en cours pour ce thème. Voulez-vous la reprendre ?')) {
+            const result = await Swal.fire({
+                title: 'Partie en cours',
+                text: `Une partie ${selectedTheme} est en cours. Voulez-vous la reprendre ?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Reprendre',
+                cancelButtonText: 'Nouveau quiz'
+            });
+            if (result.isConfirmed){
                 this.resumeQuiz();
                 return;
             } else {
@@ -73,9 +81,10 @@ class QuizUI {
             this.startQuizTimer();
             this.startQuestionTimer();
         } catch (error) {
-            alert(`Erreur lors du chargement du quiz: ${error.message}`);
+            Swal.fire('Erreur',`Erreur lors du chargement du quiz: ${error.message}`);
         }
     }
+
     resumeQuiz() {
         const progress = QuizStorage.loadProgress();
 
@@ -98,7 +107,6 @@ class QuizUI {
             this.submitBtn.style.display = 'inline-block';
         }
     }
-
 
     restartQuiz() {
         // Clear timers and reset UI
@@ -239,16 +247,11 @@ class QuizUI {
     checkForInterruptedQuiz() {
         const progress = QuizStorage.loadProgress();
         if (progress) {
-            const message = `Partie interrompue trouvée: ${progress.theme} (${progress.username}). Voulez-vous la reprendre ?`;
-            if (confirm(message)) {
-                this.usernameInput.value = progress.username;
-                this.selectThemeByName(progress.theme);
-                this.resumeQuiz();
-            } else {
-                QuizStorage.clearProgress();
-            }
+            this.usernameInput.value = progress.username;
+            this.selectThemeByName(progress.theme);
         }
     }
+
     selectThemeByName(themeName) {
         this.themeButtons.forEach(btn => {
             btn.classList.remove('selected');
@@ -257,7 +260,6 @@ class QuizUI {
             }
         });
     }
-
 
     submitQuiz(e) {
         e.preventDefault();
