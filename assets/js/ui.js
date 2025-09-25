@@ -233,6 +233,10 @@ class QuizUI {
 
         // Load history
         this.displayQuizHistory();
+
+        if (window.QuizChart) {
+            QuizChart.initCharts();
+        }
     }
 
     displayResults(results, timeObj) {
@@ -282,7 +286,7 @@ class QuizUI {
     }
 
     displayQuizHistory() {
-        const history = Quiz.getQuizHistory();
+        const history = QuizStats.getQuizHistory();
 
         this.historyDiv.innerHTML = '';
 
@@ -385,9 +389,9 @@ class QuizUI {
     }
 
     displayStatistics() {
-        const gamesByTheme = Quiz.getGamesBytheme();
-        const averagesByTheme = Quiz.getAverageScoreByTheme();
-        const topScores = Quiz.getTopScores();
+        const gamesByTheme = QuizStats.getGamesBytheme();
+        const averagesByTheme = QuizStats.getAverageScoreByTheme();
+        const topScores = QuizStats.getTopScores();
 
         let statsHTML = '<div class="statistics-section">';
         statsHTML += '<h4>Parties par thematique</h4>';

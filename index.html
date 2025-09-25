@@ -4,76 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>CodeQuizStarter V2</title>
 </head>
 <body>
-    <header>
-        <h1 class="title">CodeQuizStarter</h1>
-    </header>
-    <div class="front-score" style="display: none">
-        Votre dernier Score : <span id="score-front"></span>
-    </div>
-    <main>
-        <section class="quiz-container">
-            <!-- Start screen  -->
-            <div id="start-screen">
-                <div class="form-group">
-                    <label for="username">Votre pseudo:</label>
-                    <input type="text" id="username" required>
-                </div>
-                <div class="form-group">
-                    <label>Choisissez une thématique:</label>
-                    <div class="theme-selector">
-                        <button type="button" class="theme-btn" data-theme="javascript">JavaScript</button>
-                        <button type="button" class="theme-btn" data-theme="html">HTML</button>
-                        <button type="button" class="theme-btn" data-theme="css">CSS</button>
-                    </div>
-                </div>
-                <button id="start-btn">Commencer le Quiz</button>
+<header>
+    <h1 class="title">CodeQuizStarter</h1>
+</header>
+<div class="front-score" style="display: none">
+    Votre dernier Score : <span id="score-front"></span>
+</div>
+<main>
+    <section class="quiz-container">
+        <!-- Start screen  -->
+        <div id="start-screen">
+            <div class="form-group">
+                <label for="username">Votre pseudo:</label>
+                <input type="text" id="username" required>
             </div>
-
-            <!-- Quiz content -->
-            <div id="quiz-content" style="display: none;">
-                <div class="quiz-header">
-                    <div class="question-counter">
-                        Question <span id="current-question">1</span>/<span id="total-questions">10</span>
-                    </div>
-                    <div class="timer" id="timer">
-                        Temps : <span id="time">00:00</span>
-                    </div>
-                </div>
-                <div class="question-timer">
-                    <div class="progress-bar">
-                        <div id="question-progress"></div>
-                    </div>
-                    <span id="question-time">20</span>s
-                </div>
-                <form id="quiz-form">
-                    <!-- la place des question -->
-                </form>
-                <div class="btns">
-                    <button id="next-btn">Suivant</button>
-                    <button id="submit-btn" style="display: none;">Valider</button>
-                    <button id="close" onclick="window.location.href=window.location.href">Annuler</button>
+            <div class="form-group">
+                <label>Choisissez une thématique:</label>
+                <div class="theme-selector">
+                    <button type="button" class="theme-btn" data-theme="javascript">JavaScript</button>
+                    <button type="button" class="theme-btn" data-theme="html">HTML</button>
+                    <button type="button" class="theme-btn" data-theme="css">CSS</button>
                 </div>
             </div>
+            <button id="start-btn">Commencer le Quiz</button>
+        </div>
 
-            <!-- Results screen -->
-            <div class="result" style="display: none;">
-                <p id="score"></p>
-                <p id="feedback"></p>
-                <div id="corrections" class="corrections"></div>
-                <h3 class="TileH">Historique des résultats</h3>
-                <div id="history" class="history"></div>
-                <button id="restart-btn" style="display: none;">Recommencer</button>
+        <!-- Quiz content -->
+        <div id="quiz-content" style="display: none;">
+            <div class="quiz-header">
+                <div class="question-counter">
+                    Question <span id="current-question">1</span>/<span id="total-questions">10</span>
+                </div>
+                <div class="timer" id="timer">
+                    Temps : <span id="time">00:00</span>
+                </div>
             </div>
-        </section>
-    </main>
+            <div class="question-timer">
+                <div class="progress-bar">
+                    <div id="question-progress"></div>
+                </div>
+                <span id="question-time">20</span>s
+            </div>
+            <form id="quiz-form">
+                <!-- la place des question -->
+            </form>
+            <div class="btns">
+                <button id="next-btn">Suivant</button>
+                <button id="submit-btn" style="display: none;">Valider</button>
+                <button id="close" onclick="window.location.href=window.location.href">Annuler</button>
+            </div>
+        </div>
 
-    <script src="assets/js/quiz.js"></script>
-    <script src="assets/js/ui.js"></script>
-    <script src="assets/js/script.js"></script>
+        <!-- Results screen -->
+        <div class="result" style="display: none;">
+            <p id="score"></p>
+            <p id="feedback"></p>
+            <div id="corrections" class="corrections"></div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <h3 class="TileH">Statistiques</h3>
+                <div class="charts-container">
+                    <div class="chart-item">
+                        <canvas id="themeChart"></canvas>
+                    </div>
+                    <div class="chart-item">
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!--partie des historique-->
+            <h3 class="TileH">Historique des résultats</h3>
+            <div id="history" class="history"></div>
+            <button id="restart-btn" style="display: none;">Recommencer</button>
+        </div>
+    </section>
+</main>
+
+<script src="assets/js/quiz.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/stats.js"></script>
+<script src="assets/js/charts.js"></script>
 </body>
 </html>

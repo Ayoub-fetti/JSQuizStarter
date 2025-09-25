@@ -13,14 +13,10 @@
 }
 
 body {
-    /*
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ed 100%);
-    */
     background-image: url("/assets/images/gif.gif");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    /*font-family: 'Roboto', Arial, sans-serif;*/
     font-family: 'Press Start 2P', cursive;
     margin: 0;
     padding: 0;
@@ -476,6 +472,21 @@ button:disabled {
  .statistics-section{
      font-size: 0.5rem;
  }
+ .charts-section {
+     margin: 20px 0;
+ }
+ .charts-container {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 20px;
+     margin: 20px 0;
+ }
+ .chart-item {
+     text-align: center;
+ }
+ .chart-item canvas {
+     max-height: 300px;
+ }
 @media (max-width: 768px) {
     .quiz-container {
         padding: 16px; /* Réduit de 20px à 16px */
@@ -497,5 +508,8 @@ button:disabled {
 
     .title {
         font-size: 1.8rem; /* Réduit de 2rem à 1.8rem */
+    }
+    .charts-container {
+        grid-template-columns: 1fr;
     }
 }
