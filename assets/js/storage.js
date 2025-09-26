@@ -7,28 +7,28 @@ class QuizStorage {
             userAnswers: quiz.userAnswers,
             currentQuestionIndex: quiz.currentQuestionIndex,
             startTime: quiz.startTime,
-            timestamp: Date.now()
-        };
-        localStorage.setItem('quizProgress', JSON.stringify(progress));
+            timestamp: Date.now(),
+        }
+        localStorage.setItem("quizProgress", JSON.stringify(progress))
     }
-    static  loadProgress() {
-        const saved = localStorage.getItem('quizProgress');
-        return saved ?JSON.parse(saved) : null;
+    static loadProgress() {
+        const saved = localStorage.getItem("quizProgress")
+        return saved ? JSON.parse(saved) : null
     }
-    static  clearProgress() {
-        localStorage.removeItem('quizProgress');
+    static clearProgress() {
+        localStorage.removeItem("quizProgress")
     }
-    static  hasProgress(username, theme) {
-        const progress = this.loadProgress();
-        return progress && progress.username === username && progress.theme === theme;
+    static hasProgress(username, theme) {
+        const progress = this.loadProgress()
+        return progress && progress.username === username && progress.theme === theme
     }
-    static  saveResult(result) {
-        let history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
-        history.push(result);
-        localStorage.setItem('quizHistory', JSON.stringify(history));
+    static saveResult(result) {
+        const history = JSON.parse(localStorage.getItem("quizHistory") || "[]")
+        history.push(result)
+        localStorage.setItem("quizHistory", JSON.stringify(history))
     }
-    static  getHistory() {
-        return JSON.parse(localStorage.getItem('quizHistory') || '[]');
+    static getHistory() {
+        return JSON.parse(localStorage.getItem("quizHistory") || "[]")
     }
 }
-window.QuizStorage = QuizStorage;
+window.QuizStorage = QuizStorage
