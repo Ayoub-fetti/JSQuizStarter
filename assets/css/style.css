@@ -62,7 +62,7 @@ body {
 /* Header - Made header more compact */
 header {
     background: var(--surface);
-    border-bottom: 3px solid red; /* start color */
+    border-bottom: 1px solid red; /* start color */
     padding: 1rem 0;
     position: sticky;
     top: 0;
@@ -80,7 +80,7 @@ header {
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    background-image: linear-gradient(to bottom, #8b5cf6, white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -565,7 +565,7 @@ main {
 
 /* PDF Download Button */
 #download-pdf-btn {
-    background: linear-gradient(135deg, var(--success), #059669);
+    background: linear-gradient(135deg, var(--warning), var(--warning-light));
     color: white;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -582,6 +582,81 @@ main {
     transform: translateY(-1px);
     box-shadow: var(--shadow);
 }
+/* CSV Export Modal */
+.csv-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.csv-modal-content {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-width: 400px;
+    width: 90%;
+    border: 1px solid var(--border);
+}
+
+.csv-modal h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.csv-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.csv-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.csv-option input[type="checkbox"] {
+    accent-color: var(--primary);
+}
+
+.csv-option label {
+    color: var(--foreground);
+    font-size: 0.9rem;
+}
+
+.csv-modal-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+#download-csv-btn {
+    background: linear-gradient(135deg, var(--warning), var(--warning-light));
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0.75rem 0;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+#download-csv-btn:hover {
+    background: linear-gradient(135deg, var(--warning-light), var(--warning));
+    transform: translateY(-1px);
+}
+
 
 /* Responsive Design - Optimized for mobile */
 @media (max-width: 768px) {

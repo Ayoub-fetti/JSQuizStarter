@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Create and initialize the QuizUI
     const quizUI = new QuizUI()
+    window.quizUI = quizUI
     quizUI.init()
 
     // Display the last score if available

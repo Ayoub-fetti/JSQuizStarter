@@ -44,11 +44,11 @@ class QuizUI {
         const selectedTheme = this.getSelectedTheme()
 
         if (!username) {
-            Swal.fire("Erreur", "Veuillez entrer un pseudo")
+            Swal.fire("Oops", "Veuillez entrer un pseudo")
             return
         }
         if (!selectedTheme) {
-            Swal.fire("Erreur", "Veuillez sélectionner une thématique")
+            Swal.fire("Oops", "Veuillez sélectionner une thématique")
             return
         }
 
@@ -163,8 +163,10 @@ class QuizUI {
 
             questionHTML += `
                 <li class="option-item">
-                    <input type="${inputType}" id="q${index}o${i}" name="question${index}" value="${i}" ${isChecked}>
-                    <label for="q${index}o${i}">${option}</label>
+                    <label>
+                        <input type="${inputType}" id="q${index}o${i}" name="question${index}" value="${i}" ${isChecked}>
+                        ${option}
+                    </label>
                 </li>
             `
         })
@@ -331,14 +333,24 @@ class QuizUI {
         const timeStr = `${timeObj.minutes} min ${timeObj.seconds} sec`
         this.feedbackP.textContent = `${feedback}, temps passé dans le quiz ${timeStr}`
 
-        // Add PDF download button if not already there
         if (!document.getElementById("download-pdf-btn")) {
-            const pdfBtn = document.createElement("button")
-            pdfBtn.id = "download-pdf-btn"
-            pdfBtn.innerHTML = "&#8595;\t Rapport PDF"
-            pdfBtn.className = "btn"
-            pdfBtn.onclick = () => this.downloadPDFReport()
-            this.resultDiv.appendChild(pdfBtn)
+            const exportContainer = document.createElement("div");
+            exportContainer.style.cssText = "display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem;";
+
+            const pdfBtn = document.createElement("button");
+            pdfBtn.id = "download-pdf-btn";
+            pdfBtn.innerHTML = "📄 Rapport PDF";
+            pdfBtn.className = "btn";
+            pdfBtn.onclick = () => this.downloadPDFReport();
+
+            const csvBtn = document.createElement("button");
+            csvBtn.id = "download-csv-btn";
+            csvBtn.innerHTML = "📊 Rapport CSV";
+            csvBtn.onclick = () => this.showCSVExportModal();
+
+            exportContainer.appendChild(pdfBtn);
+            exportContainer.appendChild(csvBtn);
+            this.resultDiv.appendChild(exportContainer);
         }
     }
 
@@ -469,7 +481,145 @@ class QuizUI {
         statsHTML += `</div>`
         return statsHTML
     }
-}
 
-// Create and export UI instance
+    showCSVExportModal() {
+            const modal = document.createElement('div');
+            modal.id = 'csv-modal';
+            modal.className = 'csv-modal';
+            modal.innerHTML = `
+            <div class="csv-modal-content">
+                <h3>Exporter en CSV</h3>
+                <div class="csv-options">
+                    <div class="csv-option">
+                        <input type="checkbox" id="csv-basic" checked>
+                        <label for="csv-basic">Informations de base (Utilisateur, Thème, Score)</label>
+                    </div>
+                    <div class="csv-option">
+                        <input type="checkbox" id="csv-questions" checked>
+                        <label for="csv-questions">Détails des questions</label>
+                    </div>
+                    <div class="csv-option">
+                        <input type="checkbox" id="csv-answers">
+                        <label for="csv-answers">Réponses utilisateur</label>
+                    </div>
+                    <div class="csv-option">
+                        <input type="checkbox" id="csv-correct">
+                        <label for="csv-correct">Réponses correctes</label>
+                    </div>
+                    <div class="csv-option">
+                        <input type="checkbox" id="csv-time">
+                        <label for="csv-time">Temps de réponse</label>
+                    </div>
+                </div>
+                <div class="csv-modal-buttons">
+                    <button onclick="this.closest('.csv-modal').style.display='none'" class="btn">Annuler</button>
+                    <button onclick="quizUI.downloadCSVReport()" class="btn" style="background: var(--primary); color: white;">Télécharger</button>
+                </div>
+            </div>
+        `;
+            document.body.appendChild(modal);
+
+
+        document.getElementById('csv-modal').style.display = 'flex';
+    }
+
+    downloadCSVReport() {
+        const options = {
+            basic: document.getElementById('csv-basic').checked,
+            questions: document.getElementById('csv-questions').checked,
+            answers: document.getElementById('csv-answers').checked,
+            correct: document.getElementById('csv-correct').checked,
+            time: document.getElementById('csv-time').checked
+        };
+
+        let csvContent = '';
+        let headers = [];
+
+        // Construire les en-têtes selon les options sélectionnées
+        if (options.basic) {
+            headers.push('Utilisateur', 'Theme', 'Score', 'Total');
+        }
+        if (options.time) {
+            headers.push('Temps Total');
+        }
+        if (options.questions || options.answers || options.correct) {
+            headers.push('Question', 'Votre Reponse', 'Reponse Correcte', 'Resultat');
+        }
+
+        csvContent += headers.join(',') + '\n';
+
+        // Ajouter les données selon les options
+        if (options.questions || options.answers || options.correct) {
+            // Export détaillé par question
+            this.quiz.questions.forEach((q, i) => {
+                let row = [];
+
+                if (options.basic) {
+                    row.push(
+                        `"${this.quiz.username}"`,
+                        `"${this.quiz.theme}"`,
+                        this.quiz.calculateResults().score,
+                        this.quiz.questions.length
+                    );
+                }
+                if (options.time) {
+                    const timeObj = this.quiz.getElapsedTime();
+                    row.push(`"${timeObj.formatted}"`);
+                }
+
+                if (options.questions) {
+                    row.push(`"${q.question.replace(/"/g, '""')}"`);
+                } else {
+                    row.push('');
+                }
+
+                if (options.answers) {
+                    const userAnswer = this.quiz.userAnswers[i].map(ans => q.options[ans]).join('; ');
+                    row.push(`"${userAnswer}"`);
+                } else {
+                    row.push('');
+                }
+
+                if (options.correct) {
+                    const correctAnswer = q.answer.map(ans => q.options[ans]).join('; ');
+                    row.push(`"${correctAnswer}"`);
+                } else {
+                    row.push('');
+                }
+
+                const isCorrect = this.quiz.userAnswers[i].length === q.answer.length &&
+                    q.answer.every(ans => this.quiz.userAnswers[i].includes(ans));
+                row.push(isCorrect ? 'Correct' : 'Incorrect');
+
+                csvContent += row.join(',') + '\n';
+            });
+        } else {
+            // Export simple
+            let row = [];
+            if (options.basic) {
+                row.push(
+                    `"${this.quiz.username}"`,
+                    `"${this.quiz.theme}"`,
+                    this.quiz.calculateResults().score,
+                    this.quiz.questions.length
+                );
+            }
+            if (options.time) {
+                const timeObj = this.quiz.getElapsedTime();
+                row.push(`"${timeObj.formatted}"`);
+            }
+            csvContent += row.join(',') + '\n';
+        }
+
+        // telecharger le fichier
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `quiz-rapport-${this.quiz.username}.csv`;
+        link.click();
+
+        // close the modal
+        document.getElementById('csv-modal').style.display = 'none';
+    }
+}
 window.QuizUI = QuizUI
