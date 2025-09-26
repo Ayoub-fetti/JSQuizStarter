@@ -62,14 +62,20 @@ body {
 /* Header - Made header more compact */
 header {
     background: var(--surface);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 3px solid red; /* start color */
     padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
+    animation: rgbBorder 3s infinite linear;
 }
-
+@keyframes rgbBorder {
+    0%   { border-color: #8b5cf6; }
+    66%  { border-color: white; }
+    33%  { border-color: #10102d; }
+    100% { border-color: #8b5cf6; }
+}
 .title {
     text-align: center;
     font-size: 2rem;
@@ -166,8 +172,10 @@ main {
     border: 2px solid var(--border);
     border-radius: var(--radius);
     background: var(--surface-elevated);
-    color: var(--foreground-secondary);
-    font-weight: 500;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -186,7 +194,20 @@ main {
     border-color: var(--primary);
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
-    box-shadow: var(--shadow);
+    -webkit-box-shadow: 1px 2px 15px 5px #6D28D9FF;
+    box-shadow: 1px 2px 15px 5px #6D28D9FF;
+}
+.theme-btn[data-theme="javascript"] {
+    background-image: url('../images/code.gif');
+}
+
+.theme-btn[data-theme="html"] {
+    background-image: url('../images/code.gif');
+}
+
+.theme-btn[data-theme="css"] {
+    background-image: url('../images/code.gif');
+
 }
 
 /* Buttons - Made more compact */
