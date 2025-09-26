@@ -1,7 +1,7 @@
 :root {
     --primary-color: #4361ee;
     --secondary-color: #3f37c9;
-    --accent-color: #f72585;
+    --accent-color: green;
     --light-bg: #f8f9fa;
     --dark-bg: #212529;
     --text-color: #212529;
@@ -13,7 +13,7 @@
 }
 
 body {
-    background-image: url("/assets/images/gif.gif");
+    background-image: url("/assets/images/gif.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -435,8 +435,8 @@ button:disabled {
 }
 
 .history {
-    margin-top: 16px; /* Réduit de 20px à 16px */
-    max-height: 250px; /* Réduit de 300px à 250px */
+    margin-top: 16px;
+    max-height: 250px;
     overflow-y: auto;
     text-align: left;
     background-color: white;
@@ -449,7 +449,7 @@ button:disabled {
 }
 
 .history-item {
-    padding: 10px 12px; /* Réduit de 12px 15px à 10px 12px */
+    padding: 10px 12px;
     border-bottom: 1px solid #e9ecef;
     transition: var(--transition);
     font-size: 0.5rem;
