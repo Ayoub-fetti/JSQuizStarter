@@ -1,4 +1,4 @@
-#Quiz Application
+# Quiz Application
 
 A dynamic, interactive quiz application built with vanilla JavaScript, HTML, and CSS. This project allows users to test their knowledge across various topics with an elegant, responsive interface.
 
