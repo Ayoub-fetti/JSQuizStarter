@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Create and initialize the QuizUI
+    // creer et initialiser le quiz
     const quizUI = new QuizUI()
     window.quizUI = quizUI
     quizUI.init()
 
-    // Display the last score if available
+    // afficher le dernier score si il est disponible
     const lastResult = Quiz.getLastQuizResult()
     if (lastResult) {
         document.getElementById("score-front").textContent =

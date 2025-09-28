@@ -623,3 +623,6 @@ class QuizUI {
     }
 }
 window.QuizUI = QuizUI
+
+// foreach , includes , every , map , slice , reverse , trim , join , replace , dataset , classList.add(), classList.remove(), array.from(), Object.entries(), setInterval(), clearInterval(), setTimeout(), preventDefault , new Blob
+// URL,createObjectURL(), URL.revokeObjectURL(),

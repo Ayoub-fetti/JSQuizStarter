@@ -70,3 +70,5 @@ class QuizChart {
 }
 
 window.QuizChart = QuizChart
+
+// slice , reverse , getContext , map , object.keys, object.values ,

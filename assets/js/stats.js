@@ -64,3 +64,5 @@ class QuizStats {
     }
 }
 window.QuizStats = QuizStats
+
+// sort , foreach , slice , math.round

@@ -155,3 +155,6 @@ class Quiz {
     }
 }
 window.Quiz = Quiz
+
+
+// Array , fill , foreach , map , every , includes , push , length , json.parse , json.stringify
